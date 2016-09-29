@@ -1,0 +1,22 @@
+{
+  "cars": [
+    {
+      "year": 2001,
+      "make": "Toyota",
+      "model": "Avalon",
+      "id": 1
+    },
+    {
+      "year": 2007,
+      "make": "Mazda",
+      "model": "CX9",
+      "id": 2
+    },
+    {
+      "year": 2005,
+      "make": "Honda",
+      "model": "Civic",
+      "id": 3
+    }
+  ]
+}
