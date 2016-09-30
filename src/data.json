@@ -17,6 +17,13 @@
       "make": "Honda",
       "model": "Civic",
       "id": 3
+    },
+    {
+      "year": 1996,
+      "make": "Chevy",
+      "model": "Malibu",
+      "id": 4
     }
-  ]
+  ],
+  "logs": []
 }

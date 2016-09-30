@@ -73,16 +73,63 @@ angular
 		  }
 		};
 	  }])
+	.factory('logger', [
+		'$http', '$interpolate',
+		function ($http, $interpolate) {
+			
+			var logger = {
+				logs: []
+			};
+			
+			var error = function(response) {
+				var expression = $interpolate('There was an error.  ({{status}}-{{statusText}})');
+				var log = expression(response);
+				console.log(log);
+			};
+			
+			logger.log = function(message) {
+				var log = { message, timestamp: new Date()};
+				console.log(message);
+				
+				return $http.post('/logs', log)
+					.then(function(response) {
+						logger.logs.push(response.data);
+					}, error);
+			};
+			
+			logger.getLogs = function() {
+				return $http.get('/logs')
+					.then(function(response) {
+						angular.copy(response.data, logger.logs);
+					}, error);
+			};
+			
+			logger.deleteLog = function(log) {
+				return $http.delete('/logs/' + log.id)
+					.then(function(response) {
+						var index = logger.logs.indexOf(log);
+						if (index > -1) {
+							logger.logs.splice(index, 1);
+						}
+					}, error);
+			}
+			
+			logger.getLogs();
+			return logger;
+		}
+	])
 	.factory('data', [
-		'$http', 
-		function($http){
+		'$http', '$interpolate', 'logger',
+		function($http, $interpolate, logger){
 		
 			var service = { 
 				cars: []
 			};
 			
 			var error = function(response) {
-				alert('There was an error.  (' + response.status + '-' + response.statusText + ')');
+				var expression = $interpolate('There was an error.  ({{status}}-{{statusText}})');
+				var message = expression(response);
+				logger.log(message);
 			};
 			
 			service.getCars = function() {
@@ -116,8 +163,10 @@ angular
 	.controller('MainCtrl', [
 		'$scope',
 		'data',
-		function($scope, data){
+		'logger',
+		function($scope, data, logger){
 			$scope.cars = data.cars;
+			$scope.logs = logger.logs;
 			
 			$scope.addCar = function() {
 				if (!$scope.year || $scope.year === '') { return; }
@@ -137,6 +186,10 @@ angular
 			
 			$scope.deleteCar = function(car) {
 				data.deleteCar(car);
+			}
+			
+			$scope.deleteLog = function(log) {
+				logger.deleteLog(log);
 			}
 		}
 	]);
