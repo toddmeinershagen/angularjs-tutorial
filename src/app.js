@@ -147,6 +147,23 @@ angular
 					}, error);
 			};
 			
+			service.updateCar = function(car) {
+				return $http.put('/cars/' + car.id, car)
+					.then(function(response) {
+						var index = findIndex(service.cars, function(item) {
+							return item.id === response.data.id;
+						});
+						service.cars[index] = response.data;
+					}, error);
+			};
+			
+			function findIndex(array, predicate) {
+				for (index = 0; index < array.length; index ++) {
+					if (predicate(array[index])) return index;
+				}
+				return -1;
+			}
+			
 			service.deleteCar = function(car) {
 				return $http.delete('/cars/' + car.id)
 					.then(function(response) {
@@ -167,21 +184,60 @@ angular
 		function($scope, data, logger){
 			$scope.cars = data.cars;
 			$scope.logs = logger.logs;
+			$scope.isInEditMode = false;
 			
-			$scope.addCar = function() {
+			$scope.upsertCar = function() {
 				if (!$scope.year || $scope.year === '') { return; }
 				if (!$scope.make || $scope.make === '') { return; }
 				if (!$scope.model || $scope.model === '') { return; }
 				
-				data.addCar({
-					year: $scope.year,
-					make: $scope.make,
-					model: $scope.model
-				});
+				if ($scope.isInEditMode) {
+					var car = { id: $scope.id, year: $scope.year, make: $scope.make, model: $scope.model };
+					updateCar(car);
+				}
+				else {
+					data.addCar({
+						year: $scope.year,
+						make: $scope.make,
+						model: $scope.model
+					});
+				}
 				
+				$scope.id = '';
 				$scope.year = '';
 				$scope.make = '';
 				$scope.model = '';
+			}
+			
+			function updateCar(car) {
+				if (!$scope.year || $scope.year === '') { return; }
+				if (!$scope.make || $scope.make === '') { return; }
+				if (!$scope.model || $scope.model === '') { return; }
+				
+				data.updateCar(car);
+				
+				$scope.id = '';
+				$scope.year = '';
+				$scope.make = '';
+				$scope.model = '';
+			}
+			
+			$scope.editCar = function(car) {
+				
+				if ($scope.isInEditMode) {
+					$scope.id = '';
+					$scope.year = '';
+					$scope.model = '';
+					$scope.make = '';
+				}
+				else {
+					$scope.id = car.id;
+					$scope.year = car.year;
+					$scope.model = car.model;
+					$scope.make = car.make;
+				}
+				
+				$scope.isInEditMode = !$scope.isInEditMode;
 			}
 			
 			$scope.deleteCar = function(car) {
@@ -190,6 +246,10 @@ angular
 			
 			$scope.deleteLog = function(log) {
 				logger.deleteLog(log);
+			}
+			
+			$scope.cancelEdit = function() {
+				$scope.editCar();
 			}
 		}
 	]);
