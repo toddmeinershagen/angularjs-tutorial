@@ -23,6 +23,18 @@
       "year": 2001,
       "make": "Toyota",
       "model": "Avalon"
+    },
+    {
+      "id": 10,
+      "year": 1999,
+      "make": "Ford",
+      "model": "S10 Pickup"
+    },
+    {
+      "year": 1990,
+      "make": "Honda",
+      "model": "Accord",
+      "id": 11
     }
   ],
   "logs": []
