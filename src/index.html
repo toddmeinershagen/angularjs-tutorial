@@ -30,27 +30,43 @@
 	  
 	</head>
 	<body ng-app="serviceTracker" ng-controller="MainCtrl">
+	
+		<style>
+			.navbar-brand {
+			  padding: 0px;
+			}
+			.navbar-brand>img {
+			  height: 100%;
+			  padding: 15px;
+			  width: auto;
+			}
+		</style>
 
-		<!-- Fixed navbar -->
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-		  <div class="container">
-				<div class="navbar-header">
-				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
-				  <a class="navbar-brand" href="#">Service Tracker</a>
+		<div class="container">
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+				  <div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
+					  <span class="sr-only">Toggle navigation</span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="http://disputebills.com"><img src="favicon.png" alt="Service Tracker">
+					</a>
+				  </div>
+				  <div id="navbar1" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+					  <li class="active"><a href="#">Home</a></li>
+					  <li><a href="#">About</a></li>
+					  <li><a href="#">Contact</a></li>
+					</ul>
+				  </div>
+				  <!--/.nav-collapse -->
 				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-				  <ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">About</a></li>
-				  </ul>
-				</div><!--/.nav-collapse -->
-			  </div>
+				<!--/.container-fluid -->
 			</nav>
+		</div>
 
 			<div class="container">
 			
@@ -74,7 +90,7 @@
 						
 						<div class="list-group">
 							<a ng-repeat="car in cars | orderBy: 'year'" href="#" class="list-group-item">
-								<span class="glyphicon glyphicon-pencil" ng-click="editCar(car)"></span>
+								<span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modal" ng-click="editCar(car)"></span>
 								<span class="glyphicon glyphicon-trash" ng-click="deleteCar(car)" confirm-click="Are you sure you want to delete the {{car.year}} {{car.make}} {{car.model}}?"></span>
 								<span class="badge">0</span>
 								{{car.year}} {{car.make}} {{car.model}}
@@ -82,33 +98,8 @@
 						</div>
 						
 						<p>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">Add a car</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" ng-click="clearEditableCar()">Add a car</button>
 						</p>
-							<form class="form-inline" ng-submit="upsertCar()">
-								<div class="form-group">
-									<input type="hidden" id="id" ng-model="id"></input>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="year">Year</label>
-									<input type="text" id="year" class="form-control" placeholder="Year" ng-model="year"></input>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="make">Make</label>
-									<input type="text" id="make" class="form-control" placeholder="Make" ng-model="make"></input>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="model">Model</label>
-									<input type="text" id="model" class="form-control" placeholder="Model" ng-model="model"></input>
-								</div>
-								
-								<button ng-hide="isInEditMode" type="submit" class="btn btn-primary">Add</button>
-								
-								<ng-show ng-show="isInEditMode">
-									<button type="submit" class="btn btn-primary">Save</button>
-									<button type="button" class="btn btn-default" ng-click="cancelEdit()">Cancel</button>
-								<ng-show>
-								
-							</form>
 					</div>
 				</div>
 			</div>
@@ -136,7 +127,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary submit" ng-click="upsertCar()" data-dismiss="modal">Submit</button>
+						<button type="button" class="btn btn-primary submit" ng-click="upsertCar()" data-dismiss="modal">{{isInEditMode ? "Submit" : "Add"}}</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div><!-- /.modal-content -->

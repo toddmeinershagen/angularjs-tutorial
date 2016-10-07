@@ -209,7 +209,7 @@
 						model: $scope.model
 					});
 					
-					clearAnyCarFromScope();
+					clearEditableCar();
 				}
 				
 				function updateCar() {
@@ -224,29 +224,23 @@
 						model: $scope.model 
 					});
 					
-					clearAnyCarFromScope();
+					clearEditableCar();
 				}
 				
 				$scope.editCar = function(car) {
-					
-					if ($scope.isInEditMode) {
-						clearAnyCarFromScope();
-					}
-					else {
-						$scope.id = car.id;
-						$scope.year = car.year;
-						$scope.model = car.model;
-						$scope.make = car.make;
-					}
-					
-					$scope.isInEditMode = !$scope.isInEditMode;
+					$scope.id = car.id;
+					$scope.year = car.year;
+					$scope.model = car.model;
+					$scope.make = car.make;
+					$scope.isInEditMode = true;
 				}
 				
-				function clearAnyCarFromScope(){
+				$scope.clearEditableCar = function clearEditableCar(){
 					$scope.id = '';
 					$scope.year = '';
 					$scope.model = '';
 					$scope.make = '';
+					$scope.isInEditMode = false;
 				}
 				
 				$scope.deleteCar = function(car) {
