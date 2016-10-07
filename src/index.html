@@ -90,7 +90,7 @@
 						
 						<div class="list-group">
 							<a ng-repeat="car in cars | orderBy: 'year'" href="#" class="list-group-item">
-								<span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modal" ng-click="editCar(car)"></span>
+								<span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modal" ng-click="prepareModalForEdit(car)"></span>
 								<span class="glyphicon glyphicon-trash" ng-click="deleteCar(car)" confirm-click="Are you sure you want to delete the {{car.year}} {{car.make}} {{car.model}}?"></span>
 								<span class="badge">0</span>
 								{{car.year}} {{car.make}} {{car.model}}
@@ -98,7 +98,7 @@
 						</div>
 						
 						<p>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" ng-click="clearEditableCar()">Add a car</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" ng-click="prepareModalForAdd()">Add a car</button>
 						</p>
 					</div>
 				</div>

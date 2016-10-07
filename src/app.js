@@ -189,6 +189,22 @@
 				$scope.logs = logger.logs;
 				$scope.isInEditMode = false;
 				
+				$scope.prepareModalForEdit = function(car) {
+					$scope.id = car.id;
+					$scope.year = car.year;
+					$scope.model = car.model;
+					$scope.make = car.make;
+					$scope.isInEditMode = true;
+				}
+				
+				$scope.prepareModalForAdd = function prepareModalForAdd(){
+					$scope.id = '';
+					$scope.year = '';
+					$scope.model = '';
+					$scope.make = '';
+					$scope.isInEditMode = false;
+				}
+				
 				$scope.upsertCar = function() {					
 					if ($scope.isInEditMode) {
 						updateCar();
@@ -209,7 +225,7 @@
 						model: $scope.model
 					});
 					
-					clearEditableCar();
+					prepareModalForAdd();
 				}
 				
 				function updateCar() {
@@ -224,23 +240,7 @@
 						model: $scope.model 
 					});
 					
-					clearEditableCar();
-				}
-				
-				$scope.editCar = function(car) {
-					$scope.id = car.id;
-					$scope.year = car.year;
-					$scope.model = car.model;
-					$scope.make = car.make;
-					$scope.isInEditMode = true;
-				}
-				
-				$scope.clearEditableCar = function clearEditableCar(){
-					$scope.id = '';
-					$scope.year = '';
-					$scope.model = '';
-					$scope.make = '';
-					$scope.isInEditMode = false;
+					prepareModalForAdd();
 				}
 				
 				$scope.deleteCar = function(car) {
@@ -249,10 +249,6 @@
 				
 				$scope.deleteLog = function(log) {
 					logger.deleteLog(log);
-				}
-				
-				$scope.cancelEdit = function() {
-					$scope.editCar();
 				}
 			}
 		]);
