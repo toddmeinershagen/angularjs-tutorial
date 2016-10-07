@@ -91,7 +91,7 @@
 				};
 				
 				logger.log = function(message) {
-					var log = { message, timestamp: new Date()};
+					var log = { message: message, timestamp: new Date()};
 					console.log(message);
 					
 					return $http.post('/logs', log)
