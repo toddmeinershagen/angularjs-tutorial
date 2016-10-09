@@ -4,22 +4,22 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" href="favicon.png">
+		<link rel="icon" href="content/favicon.png">
 		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<title>Service Tracker</title>
 		
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/css/ie10-viewport-bug-workaround.css">
 		
 		<!-- Optional theme -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
 		
 		<!-- Custom theme -->
-		<link rel="stylesheet" href="theme.css">
+		<link rel="stylesheet" href="content/theme.css">
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,7 +29,7 @@
 		<![endif]-->
 			  
 	</head>
-	<body ng-app="serviceTracker" ng-controller="MainCtrl">
+	<body ng-app="serviceTracker" ng-controller="cars">
 
 		<div class="container">
 			<nav class="navbar navbar-inverse">
@@ -41,7 +41,7 @@
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="http://disputebills.com"><img src="favicon.png" alt="Service Tracker"></a>
+					<a class="navbar-brand" href="http://disputebills.com"><img src="content/favicon.png" alt="Service Tracker"></a>
 				  </div>
 				  <div id="navbar1" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
@@ -123,20 +123,31 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		
 		<!-- Angular -->
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-		<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-		<script src="app.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.30/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.4/ui-bootstrap-tpls.min.js"></script>
+		
+		<script src="app/app.module.js"></script>
+		<script src="app/directives.js"></script>
+		<script src="app/logger.service.js"></script>
+		<script src="app/data.service.js"></script>
+		<script src="app/cars.controller.js"></script>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.css"></script>
 		
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+		
+		<script>
+			$('#modal').on('shown.bs.modal', function () {
+				$('#year').focus();
+			})
+		</script>
 		
 	</body>
 </html>

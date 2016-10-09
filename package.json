@@ -1,0 +1,26 @@
+{
+  "name": "service-tracker",
+  "version": "1.0.0",
+  "description": "an app for tracking service to your vehicles",
+  "main": "app.js",
+  "dependencies": {
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "karma start karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toddmeinershagen/angularjs-tutorial.git"
+  },
+  "author": "Todd Meinershagen",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/toddmeinershagen/angularjs-tutorial/issues"
+  },
+  "homepage": "https://github.com/toddmeinershagen/angularjs-tutorial#readme"
+}
