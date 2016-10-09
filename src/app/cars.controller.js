@@ -5,7 +5,13 @@
 
 		function cars($scope, data, logger){
 			$scope.cars = data.cars;
-			$scope.logs = logger.logs;
+			
+			logger.getLogs()
+				.then(function(response) {
+					$scope.logs = response;
+				});
+				
+			//$scope.logs = logger.logs;
 			$scope.isInEditMode = false;
 			
 			$scope.prepareModalForEdit = function(car) {
@@ -67,7 +73,12 @@
 			}
 			
 			$scope.deleteLog = function(log) {
-				logger.deleteLog(log);
+				logger.deleteLog(log.id);
+				
+				var index = $scope.logs.indexOf(log);
+				if (index > -1) {
+					logger.logs.splice(index, 1);
+				}
 			}
 		}
 })();
