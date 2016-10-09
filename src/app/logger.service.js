@@ -6,12 +6,36 @@
 	
 	function logger ($http, $q) {//, $interpolate, $log) {		
 		var resourceUrl = "logs";
+		var logger = {};
 		
+		logger.logError = function (message) {
+			var log = { message: message, timestamp: new Date()};
+			$http.post(resourceUrl, log);
+		}
+		
+		logger.getLogs = function () {
+			//using $q to reshape the response.
+			var deferred = $q.defer();
+			$http.get(resourceUrl)
+				.then(function(response) {
+					deferred.resolve(response.data);
+				});
+			return deferred.promise;
+			//return $http.get(resourceUrl);
+		}
+		
+		logger.deleteLog = function (id) {
+			$http.delete(resourceUrl + '/' + id);
+		}
+		
+		return logger;
+		
+		/*
 		var logger = {
 			logs: []
 		};
 		
-		/*
+
 		var error = function(response) {
 			var expression = $interpolate('There was an error.  ({{status}}-{{statusText}})');
 			var log = expression(response);
@@ -34,20 +58,7 @@
 					angular.copy(response.data, logger.logs);
 				}, error);
 		};
-		*/
 		
-		logger.getLogs = function () {
-			//using $q to reshape the response.
-			var deferred = $q.defer();
-			$http.get(resourceUrl)
-				.then(function(response) {
-					deferred.resolve(response.data);
-				});
-			return deferred.promise;
-			//return $http.get(resourceUrl);
-		}
-		
-		/*
 		logger.deleteLog = function(log) {
 			return $http.delete(resourceUrl + '/' + log.id)
 				.then(function(response) {
@@ -57,16 +68,9 @@
 					}
 				}, error);
 		}
-		*/
 		
-		logger.deleteLog = function (id) {
-			$http.delete(resourceUrl + '/' + id);
-		}
-		
-		/*
 		logger.getLogs();
-		*/
-		
 		return logger;
+		*/
 	}
 })();
